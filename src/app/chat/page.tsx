@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Upload } from "lucide-react";
 // Chat message type definition
 type MessageType = {
   sender: "AI" | "ME";
@@ -192,7 +191,7 @@ const ChatbotPage = () => {
     }, 3000);
   };
 
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const fileType = file.type;
@@ -203,13 +202,16 @@ const ChatbotPage = () => {
       }
 
       setSelectedImage(file);
+
+      // Automatically trigger analysis when file is selected
+      await handleImageAnalysis(file);
     }
   };
 
-  const handleImageAnalysis = async () => {
-    if (!selectedImage) return;
+  const handleImageAnalysis = async (imageFile = selectedImage) => {
+    if (!imageFile) return;
 
-    const imageUrl = URL.createObjectURL(selectedImage);
+    const imageUrl = URL.createObjectURL(imageFile);
 
     const userMessage: MessageType = {
       sender: "ME",
@@ -230,7 +232,7 @@ const ChatbotPage = () => {
 
     try {
       const formData = new FormData();
-      formData.append("file", selectedImage);
+      formData.append("file", imageFile);
       formData.append(
         "text",
         "Analyze this skin image and recommend BroClear level"
@@ -332,40 +334,15 @@ const ChatbotPage = () => {
         />
       </div>
 
-      {currentStep === "1" && (
-        <div className="w-full max-w-md mt-4">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageSelect}
-            ref={fileInputRef}
-            className="hidden"
-          />
-          <Button
-            onClick={() => fileInputRef.current?.click()}
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-lg py-2 mb-4 flex items-center justify-center"
-            disabled={isAnalyzing}
-          >
-            <Upload className="mr-2 h-5 w-5" />
-            BroAnalyze My Skin
-          </Button>
-
-          {selectedImage && (
-            <div className="flex justify-between items-center bg-gray-800 rounded-lg p-3 mb-4">
-              <span className="text-sm truncate">{selectedImage.name}</span>
-              <Button
-                onClick={handleImageAnalysis}
-                className="bg-orange-500 hover:bg-orange-600 text-sm"
-                disabled={isAnalyzing}
-              >
-                {isAnalyzing ? "Analyzing..." : "Analyze"}
-              </Button>
-            </div>
-          )}
-        </div>
-      )}
-
       <div className="w-full max-w-md flex-1 flex flex-col mt-4 mb-20 overflow-y-auto">
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageSelect}
+          ref={fileInputRef}
+          className="hidden"
+        />
+
         <div className="flex-1 space-y-4 mb-4">
           {messages.map((message, aiIndex) => {
             const userResponse = userResponses[aiIndex]
@@ -430,6 +407,16 @@ const ChatbotPage = () => {
               {option.text}
             </Button>
           ))}
+
+          {currentStep === "1" && (
+            <Button
+              onClick={() => fileInputRef.current?.click()}
+              className="bg-orange-500 hover:bg-orange-600 text-white w-full text-sm rounded-full"
+              disabled={isAnalyzing || messages[messages.length - 1]?.isTyping}
+            >
+              👊 BroAnalyze My Skin
+            </Button>
+          )}
         </div>
       </div>
     </main>
