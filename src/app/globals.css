@@ -125,3 +125,54 @@
 .font-poppins {
   font-family: var(--font-poppins), sans-serif;
 }
+
+/* Markdown styles */
+.markdown {
+  line-height: 1.6;
+}
+
+.markdown p {
+  margin-bottom: 0.75rem;
+}
+
+.markdown p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown strong {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.markdown em {
+  font-style: italic;
+  color: #f0f0f0;
+}
+
+.markdown ul, .markdown ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown ul {
+  list-style-type: disc;
+}
+
+.markdown ol {
+  list-style-type: decimal;
+}
+
+.markdown li {
+  margin-bottom: 0.25rem;
+}
+
+.markdown a {
+  color: #ffa07a;
+  text-decoration: underline;
+}
+
+.markdown h1, .markdown h2, .markdown h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}

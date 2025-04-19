@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import BackButton from "@/components/BackButton";
+import ReactMarkdown from "react-markdown";
+
 // Chat message type definition
 type MessageType = {
   sender: "AI" | "ME";
@@ -18,17 +20,15 @@ type MessageType = {
 const chatFlow: Record<string, MessageType> = {
   "1": {
     sender: "AI",
-    text: "👋 Hi! I'm BroClear AI – here to help you get BroReady. Let's tackle those blackheads! What's your current skin concern?",
+    text: "👋 Hey! I'm **BroClear AI** – let's get your skin BroReady!\n\nEveryone starts light. Ready for your custom skincare journey?",
     options: [
-      { text: "Just starting skincare", nextStep: "2a" },
-      { text: "Mild blackheads", nextStep: "2a" },
-      { text: "Persistent blackheads", nextStep: "2b" },
-      { text: "Stubborn blackheads", nextStep: "2c" },
+      { text: "Yes, let's go!", nextStep: "2a" },
+      { text: "What's in it?", nextStep: "FAQ" },
     ],
   },
   "2a": {
     sender: "AI",
-    text: "Got it. Prevention is key. Let's keep it light. ✅ Start with Level 1 (6000 microneedles) 💡 Apply daily for 2 weeks if you have blackheads.",
+    text: "✅ Start with **Level 1** (1,000 microneedles) – gentle and perfect for all skin types.\n\n**Apply daily for 2 weeks.**",
     options: [
       { text: "Tell me more about Level 1", nextStep: "3a1" },
       { text: "Any side effects?", nextStep: "3a2" },
@@ -38,25 +38,25 @@ const chatFlow: Record<string, MessageType> = {
   },
   "2b": {
     sender: "AI",
-    text: "Sounds like your skin needs a bit more power. ✅ Go with Level 2 (2500 microneedles) 💡 Use twice a week for persistent blackheads.",
+    text: "Time to go deeper.\n\n✅ Try **Level 2** (2,500 microneedles).\n\n**Use 2–3x a week** for persistent blackheads.",
     options: [
       { text: "Tell me more about Level 2", nextStep: "3b1" },
-      { text: "Can I switch levels later?", nextStep: "3b2" },
+      { text: "Can I move up again later?", nextStep: "3b2" },
     ],
     image: "/levels/level-2.png",
   },
   "2c": {
     sender: "AI",
-    text: "Let's bring in the heavy hitter. ✅ Use Level 3 (6000 microneedles) 💡 Twice a week for stubborn blackheads.",
+    text: "Go big with **Level 3** (6,000 microneedles)\n\n**Use 2x a week** for stubborn blackheads.",
     options: [
       { text: "Tell me more about Level 3", nextStep: "3c1" },
-      { text: "How do I prevent them from coming back?", nextStep: "3c2" },
+      { text: "What happens after clearing?", nextStep: "3c2" },
     ],
     image: "/levels/level-3.png",
   },
   "3a1": {
     sender: "AI",
-    text: "Level 1 is great for beginners and prevention. It uses 6000 microneedles to gently clear pores.",
+    text: "**Level 1** is gentle, with 1,000 microneedles.\n\nPerfect for beginners and mild blackheads.",
     options: [
       { text: "Back", nextStep: "2a" },
       { text: "Start Over", nextStep: "startOver" },
@@ -64,7 +64,7 @@ const chatFlow: Record<string, MessageType> = {
   },
   "3a2": {
     sender: "AI",
-    text: "Possible mild tingling, but nothing harsh. If irritation occurs, reduce frequency.",
+    text: "You may feel a light tingling – *that's normal!*\n\nIf you feel irritation, just reduce frequency.",
     options: [
       { text: "Back", nextStep: "2a" },
       { text: "Start Over", nextStep: "startOver" },
@@ -72,12 +72,12 @@ const chatFlow: Record<string, MessageType> = {
   },
   "3a3": {
     sender: "AI",
-    text: "After 2 weeks, shift to 1–2x per week to maintain clear skin.",
-    options: [{ text: "Got it", nextStep: "4" }],
+    text: "After 2 weeks, you can either:\n\n🔹 Continue **Level 1** weekly for prevention\n🔸 OR move to **Level 2** if blackheads persist.",
+    options: [{ text: "Show me Level 2", nextStep: "2b" }],
   },
   "3b1": {
     sender: "AI",
-    text: "Level 2 delivers 2500 microneedles with more depth, designed for persistent blackheads.",
+    text: "**Level 2** reaches deeper pores with 2,500 microneedles.\n\nGreat for persistent blackheads.",
     options: [
       { text: "Back", nextStep: "2b" },
       { text: "Start Over", nextStep: "startOver" },
@@ -85,7 +85,7 @@ const chatFlow: Record<string, MessageType> = {
   },
   "3b2": {
     sender: "AI",
-    text: "Yes! You can adjust levels as your skin improves—start strong, then step down.",
+    text: "**Absolutely!**\n\nIf needed, you can level up to **Level 3** later — or step back to **Level 1** for prevention.",
     options: [
       { text: "Got it", nextStep: "4" },
       { text: "Start Over", nextStep: "startOver" },
@@ -93,15 +93,15 @@ const chatFlow: Record<string, MessageType> = {
   },
   "3c1": {
     sender: "AI",
-    text: "Level 3 combines power and depth (6000 microneedles) to target the most stubborn blackheads.",
+    text: "**Level 3** is intense — combining power and depth.\n\nTargets the most stubborn blackheads.",
     options: [
-      { text: "Back", nextStep: "2c" },
+      { text: "Back", nextStep: "2b" },
       { text: "Start Over", nextStep: "startOver" },
     ],
   },
   "3c2": {
     sender: "AI",
-    text: "Once cleared, switch to Level 1 once or twice weekly to prevent buildup.",
+    text: "Once your skin is clear, switch back to **Level 1** 1–2x/week to prevent blackheads from coming back.",
     options: [
       { text: "Got it", nextStep: "4" },
       { text: "Start Over", nextStep: "startOver" },
@@ -109,12 +109,17 @@ const chatFlow: Record<string, MessageType> = {
   },
   "4": {
     sender: "AI",
-    text: "🌀 Let's keep those blackheads away. ✅ Once skin clears, use Level 1 weekly for prevention.",
+    text: "🌀 Let's keep those blackheads away.\n\n✅ Once skin clears, use **Level 1** weekly for prevention.",
     options: [
       { text: "Set reminder", nextStep: "end" },
       { text: "Show skincare routine", nextStep: "end" },
       { text: "Start over", nextStep: "1" },
     ],
+  },
+  FAQ: {
+    sender: "AI",
+    text: "**Powered by:**\n\n🔹 **Microneedling Technology** — Boosts absorption and tightens pores\n\n🔹 **Salicylic Acid** — Clears pores & prevents blackheads\n\n🔹 **Panthenol (Pro-Vitamin B5)** — Soothes skin and strengthens the barrier",
+    options: [{ text: "Back", nextStep: "1" }],
   },
 };
 
@@ -279,7 +284,7 @@ const ChatbotPage = () => {
 
       const aiResponse: MessageType = {
         sender: "AI",
-        text: messageText,
+        text: messageText, // This already contains markdown formatting from the AI
         options: [{ text: "Start over", nextStep: "1" }],
         image: levelImage,
         recommendedLevel: recommendedLevel || undefined,
@@ -358,7 +363,13 @@ const ChatbotPage = () => {
               <React.Fragment key={aiIndex}>
                 <div className="flex flex-col items-start">
                   <div className="bg-orange-500 text-white rounded-lg px-4 py-2 max-w-[80%]">
-                    {message.isTyping ? <TypingIndicator /> : message.text}
+                    {message.isTyping ? (
+                      <TypingIndicator />
+                    ) : (
+                      <ReactMarkdown className="markdown">
+                        {message.text}
+                      </ReactMarkdown>
+                    )}
                   </div>
                   <div className="text-xs text-gray-500 mt-1 ml-2">AI</div>
 
