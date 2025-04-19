@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import BackButton from "@/components/BackButton";
 // Chat message type definition
 type MessageType = {
   sender: "AI" | "ME";
@@ -324,14 +325,18 @@ const ChatbotPage = () => {
 
   return (
     <main className="flex flex-col items-center justify-start min-h-screen bg-black text-white px-6">
-      <div className="w-full py-5 border-b border-gray-800">
-        <Image
-          src="/logos/loreal-men-expert.png"
-          alt="L'Oreal Men Expert"
-          width={300}
-          height={80}
-          className="mx-auto"
-        />
+      <div className="w-full py-5 border-b border-gray-800 flex items-center relative">
+        <div className="absolute left-0">
+          <BackButton />
+        </div>
+        <div className="w-full flex justify-center">
+          <Image
+            src="/logos/loreal-men-expert.png"
+            alt="L'Oreal Men Expert"
+            width={300}
+            height={80}
+          />
+        </div>
       </div>
 
       <div className="w-full max-w-md flex-1 flex flex-col mt-4 mb-20 overflow-y-auto">

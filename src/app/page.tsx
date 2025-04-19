@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import ChatButton from "@/components/ChatButton";
+import ClaimRewardsButton from "@/components/ClaimRewardsButton";
 
 const HomePage = () => {
   return (
@@ -35,52 +36,39 @@ const HomePage = () => {
         />
       </div>
 
+      <ClaimRewardsButton />
+
       {/* Chat button */}
       <ChatButton />
 
       {/* Strava button */}
       <Button
-        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-7 rounded-full text-center font-medium text-lg flex items-center justify-center"
+        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-9 rounded-full text-center font-medium text-xl flex items-center justify-between px-8"
         variant="outline"
       >
-        <Image
-          src="/logos/strava.png"
-          alt="Strava"
-          width={32}
-          height={32}
-          className="mr-3"
-        />
-        RUN 10KM
+        <Image src="/logos/strava.png" alt="Strava" width={64} height={64} />
+        <span className="flex-1 text-center">RUN 10KM</span>
+        <div className="w-8"></div> {/* Spacer to balance the layout */}
       </Button>
 
       {/* MYROX button */}
       <Button
-        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-7 rounded-full text-center font-medium text-lg flex items-center justify-center"
+        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-9 rounded-full text-center font-medium text-xl flex items-center justify-between px-8"
         variant="outline"
       >
-        <Image
-          src="/logos/hyrox.png"
-          alt="MYROX"
-          width={32}
-          height={32}
-          className="mr-3"
-        />
-        PARTICIPATE
+        <Image src="/logos/hyrox.png" alt="MYROX" width={64} height={64} />
+        <span className="flex-1 text-center">PARTICIPATE</span>
+        <div className="w-8"></div> {/* Spacer to balance the layout */}
       </Button>
 
       {/* Cycling button */}
       <Button
-        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-7 rounded-full text-center font-medium text-lg flex items-center justify-center"
+        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-9 rounded-full text-center font-medium text-xl flex items-center justify-between px-8"
         variant="outline"
       >
-        <Image
-          src="/logos/CYCLING.png"
-          alt="Cycling"
-          width={32}
-          height={32}
-          className="mr-3"
-        />
-        CYCLING
+        <Image src="/logos/CYCLING.png" alt="Cycling" width={64} height={64} />
+        <span className="flex-1 text-center">CYCLING</span>
+        <div className="w-8"></div> {/* Spacer to balance the layout */}
       </Button>
     </main>
   );
