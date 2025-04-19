@@ -1,24 +1,23 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import ChatButton from "@/components/ChatButton";
 
 const HomePage = () => {
   return (
-    <main className="flex flex-col items-center justify-start min-h-screen bg-black text-white p-6">
+    <main className="flex flex-col items-center justify-start min-h-screen bg-black text-white px-6">
       {/* L'OREAL Logo */}
-      <div className="mt-10 mb-4">
+      <div className="mt-10 mb-10 flex flex-col gap-0 items-center">
         <Image
-          src="/images/loreal-men-expert-logo.png"
+          src="/logos/loreal-men-expert.png"
           alt="L'ORÉAL MEN EXPERT"
-          width={240}
-          height={80}
+          width={200}
+          height={67}
           priority
+          className="mb-2"
         />
-      </div>
 
-      {/* Description text */}
-      <div className="text-center max-w-xs mb-10">
-        <p className="text-sm">
+        <p className="text-[10px] text-center max-w-xs px-12">
           your ultimate app for men&apos;s skincare, fitness, health, and life.
           Get BroReady while earning rewards you can redeem, donate, or use to
           support social causes.
@@ -26,9 +25,9 @@ const HomePage = () => {
       </div>
 
       {/* BRO READY Logo */}
-      <div className="mb-10">
+      <div className="mb-2">
         <Image
-          src="/images/bro-ready-logo.png"
+          src="/logos/broclear-logo.png"
           alt="BRO READY WITH BROCLEAR"
           width={300}
           height={100}
@@ -37,17 +36,15 @@ const HomePage = () => {
       </div>
 
       {/* Chat button */}
-      <Button className="w-full max-w-md mb-5 bg-green-500 hover:bg-green-600 text-white py-5 rounded-full text-center font-medium text-lg">
-        TALK WITH AI CHATBOT
-      </Button>
+      <ChatButton />
 
       {/* Strava button */}
       <Button
-        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-5 rounded-full text-center font-medium text-lg flex items-center justify-center"
+        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-7 rounded-full text-center font-medium text-lg flex items-center justify-center"
         variant="outline"
       >
         <Image
-          src="/images/strava-logo.png"
+          src="/logos/strava.png"
           alt="Strava"
           width={32}
           height={32}
@@ -58,11 +55,11 @@ const HomePage = () => {
 
       {/* MYROX button */}
       <Button
-        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-5 rounded-full text-center font-medium text-lg flex items-center justify-center"
+        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-7 rounded-full text-center font-medium text-lg flex items-center justify-center"
         variant="outline"
       >
         <Image
-          src="/images/myrox-logo.png"
+          src="/logos/hyrox.png"
           alt="MYROX"
           width={32}
           height={32}
@@ -73,11 +70,11 @@ const HomePage = () => {
 
       {/* Cycling button */}
       <Button
-        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-5 rounded-full text-center font-medium text-lg flex items-center justify-center"
+        className="w-full max-w-md mb-5 bg-white hover:bg-gray-100 text-black py-7 rounded-full text-center font-medium text-lg flex items-center justify-center"
         variant="outline"
       >
         <Image
-          src="/images/cycling-logo.png"
+          src="/logos/CYCLING.png"
           alt="Cycling"
           width={32}
           height={32}
