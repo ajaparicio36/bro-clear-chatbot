@@ -112,7 +112,7 @@ const RewardsSection: React.FC = () => {
         >
           <div className="text-left">
             <div className="font-bold text-md tracking-wider">
-              DONATE ₱300 TO MentalHeathPH
+              DONATE ₱300 TO MentalHealthPH
             </div>
             <div className="text-xs">
               Support mental health care for those in need
