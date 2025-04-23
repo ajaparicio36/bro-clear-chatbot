@@ -20,7 +20,7 @@ type MessageType = {
 const chatFlow: Record<string, MessageType> = {
   "1": {
     sender: "AI",
-    text: "👋 Hey! I'm **BroClear AI** – let's get your skin BroReady!\n\nEveryone starts light. Ready for your custom skincare journey?",
+    text: "👋 Hey! I'm **BRO Skin Expert** – let's get your skin BroReady!\n\nEveryone starts light. Ready for your custom skincare journey?",
     options: [
       { text: "Yes, let's go!", nextStep: "2a" },
       { text: "What's in it?", nextStep: "FAQ" },
